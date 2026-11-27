@@ -73,7 +73,6 @@ export const generateFlights = (
       const flight: Flight = {
         ...rest,
         departureDate: departure.toISODate(),
-        route: `${rest.origin}#${rest.destination}`,
         departureAt: departure.toISO({ suppressMilliseconds: true }),
         departureAtUtc: departure.toUTC().toISO({ suppressMilliseconds: true }),
         arrivalAt: arrival.toISO({ suppressMilliseconds: true }),

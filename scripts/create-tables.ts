@@ -19,22 +19,10 @@ const tables: CreateTableCommandInput[] = [
     AttributeDefinitions: [
       { AttributeName: 'flightNumber', AttributeType: 'S' },
       { AttributeName: 'departureDate', AttributeType: 'S' },
-      { AttributeName: 'route', AttributeType: 'S' },
-      { AttributeName: 'departureAtUtc', AttributeType: 'S' },
     ],
     KeySchema: [
       { AttributeName: 'flightNumber', KeyType: 'HASH' },
       { AttributeName: 'departureDate', KeyType: 'RANGE' },
-    ],
-    GlobalSecondaryIndexes: [
-      {
-        IndexName: 'route-index',
-        KeySchema: [
-          { AttributeName: 'route', KeyType: 'HASH' },
-          { AttributeName: 'departureAtUtc', KeyType: 'RANGE' },
-        ],
-        Projection: { ProjectionType: 'ALL' },
-      },
     ],
   },
   {

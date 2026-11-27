@@ -2,6 +2,36 @@
 
 A flight search and booking API built with NestJS and TypeScript, using DynamoDB to store flights and bookings and Elasticsearch to search them.
 
+## DynamoDB and Elasticsearch
+
+**DynamoDB is the source of truth. Elasticsearch is a read model.**
+
+|          | DynamoDB                               | Elasticsearch                        |
+| -------- | -------------------------------------- | ------------------------------------ |
+| Job      | Stores flights and bookings            | Searches flights                     |
+| Holds    | The real data                          | A copy of flights, shaped for search |
+| Good at  | Safe writes, like taking the last seat | Filters, sorting and pages           |
+| Bookings | Yes                                    | No, bookings are never searched      |
+
+### How Elasticsearch stays up to date
+
+All writes go to DynamoDB only. Nothing writes to Elasticsearch directly.
+
+```
+DynamoDB  -> DynamoDB Streams  -> indexer  ->  Elasticsearch
+```
+
+1. A flight changes in DynamoDB, for example a seat is booked.
+2. DynamoDB Streams records the change.
+3. The indexer reads the change and updates Elasticsearch.
+
+If Elasticsearch is down, the changes wait in the stream and are applied later.
+
+### Why not write to both
+
+If the app wrote to DynamoDB and then to Elasticsearch, the second write could fail.
+The two would then show different data, and nothing would fix it.
+
 ## Data model and design decisions
 
 The project uses two DynamoDB tables: `flights` and `bookings`.
@@ -11,18 +41,18 @@ Every table has a partition key and can have a sort key.
 - The **partition key** decides where an item is stored. It is always needed to find an item.
 - The **sort key** keeps items in order inside the same partition key. This allows range queries, like "all of December".
 - The partition key and sort key **together** must be unique.
-- A **GSI** (global secondary index) is a second copy of the data with different keys, so the data can be searched a different way. A GSI is read-only.
 
 ### `flights` table
 
 #### Access patterns
 
-| #   | What is needed                        | Example                      |
-| --- | ------------------------------------- | ---------------------------- |
-| 1   | Get one flight                        | QF1 on 1 Dec 2026            |
-| 2   | Get all dates for one flight number   | QF1 in December              |
-| 3   | Get all flights on a route on one day | Melbourne to Sydney on 1 Dec |
-| 4   | Take a seat when someone books        | QF1 on 1 Dec, one seat less  |
+| #   | What is needed                      | Example                     |
+| --- | ----------------------------------- | --------------------------- |
+| 1   | Get one flight                      | QF1 on 1 Dec 2026           |
+| 2   | Get all dates for one flight number | QF1 in December             |
+| 3   | Take a seat when someone books      | QF1 on 1 Dec, one seat less |
+
+Searching, like all flights from Melbourne to Sydney on 1 Dec, is done by Elasticsearch, not DynamoDB.
 
 #### Keys
 
@@ -33,23 +63,11 @@ Every table has a partition key and can have a sort key.
 
 - **Get one flight (1):** `flightNumber = QF1` and `departureDate = 2026-12-01`
 - **All dates for a flight (2):** `flightNumber = QF1` and `departureDate` between `2026-12-01` and `2026-12-31`
-- **Take a seat (4):** update the flight by its key, only if `seatsAvailable > 0`
-
-#### GSI `route-index` (search by route)
-
-|               | Attribute        | Example                |
-| ------------- | ---------------- | ---------------------- |
-| Partition key | `route`          | `MEL#SYD`              |
-| Sort key      | `departureAtUtc` | `2026-11-30T23:00:00Z` |
-
-- **Flights on a route on one day (3):** `route = MEL#SYD` and `departureAtUtc` between the start and end of that day.
-- Results come back sorted by departure time.
+- **Take a seat (3):** update the flight by its key, only if `seatsAvailable > 0`
 
 #### Why the flight number is the partition key, not the route
 
-DynamoDB can only change an item through the main table key. A GSI can only be read.
-
-A booking says "book QF1 on 1 December". That is exactly the main key, so the seat update is one direct call.
+A booking says "book QF1 on 1 December". That is exactly the key, so the seat update is one direct call.
 
 With the route as the main key:
 
@@ -57,7 +75,16 @@ With the route as the main key:
 - If the departure time changes, the key changes. A key cannot be changed, so the item would have to be deleted and created again.
 - Busy routes like Melbourne to Sydney would put all their bookings on one partition.
 
-So: the pattern that **changes** data uses the main key. Patterns that only **search** use a GSI.
+So: the pattern that **changes** data decides the key. Search is done by Elasticsearch.
+
+#### No secondary index
+
+A GSI (global secondary index) would let DynamoDB search flights by route too.
+The table does not have one, because Elasticsearch does the searching.
+
+- Every write to a table is also written to each GSI, so it costs more.
+- Two ways to search means twice the code and tests.
+- If Elasticsearch is down, search shows an error. Booking still works, because it only uses DynamoDB.
 
 ### `bookings` table
 
@@ -93,13 +120,17 @@ A booking changes both tables at once, in one DynamoDB transaction (`TransactWri
 
 Either both happen or neither does. Two people cannot get the last seat.
 
-### Times: always UTC in keys
+### Times: local and UTC
 
-Sort keys are compared like text, letter by letter.
-Times with different time zones do not sort correctly as text.
-So every time inside a key is in UTC (ends with `Z`).
+Each flight stores its departure time twice:
 
-Each flight still stores its local time (`departureAt`) to show to users.
+| Field            | Example                     | Used for          |
+| ---------------- | --------------------------- | ----------------- |
+| `departureAt`    | `2026-12-01T06:00:00+11:00` | Showing to users  |
+| `departureAtUtc` | `2026-11-30T19:00:00Z`      | Searching by time |
+
+Times in different time zones are hard to compare.
+So searches always use UTC (ends with `Z`).
 
 #### "A day" means a day at the departure airport
 
@@ -168,3 +199,20 @@ docker compose down -v
 This is fine for now. Seeding only runs when the local database is set up or reset.
 
 **Future fix:** use `BatchWriteCommand`. It writes 25 flights in one request.
+
+### One cabin per flight
+
+Each flight has one price and one seat count. There is no economy, business or first class.
+
+This keeps booking simple for now. A booking takes one seat from one counter.
+
+**Future fix:** give each flight a seat count and price per cabin, for example:
+
+```ts
+cabins: {
+  ECONOMY:  { totalSeats: 150, seatsAvailable: 12, priceCents: 19900 },
+  BUSINESS: { totalSeats: 30,  seatsAvailable: 4,  priceCents: 89900 },
+}
+```
+
+A booking would then choose a cabin, and take a seat from that cabin only.
