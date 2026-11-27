@@ -1,14 +1,7 @@
 import { Flight } from '../src/flights/flight.entity';
+import { Airport } from '../src/airports/airport.entity';
 import { DateTime } from 'luxon';
 export type Weekday = 1 | 2 | 3 | 4 | 5 | 6 | 7;
-
-export interface Airport {
-  code: string;
-  name: string;
-  city: string;
-  country: string;
-  timezone: string;
-}
 
 export interface Schedule {
   flightNumber: string;

@@ -19,13 +19,17 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:create-tables": "ts-node scripts/create-tables.ts",
-    "db:seed": "ts-node scripts/seed-flights.ts"
+    "db:seed": "ts-node scripts/seed-flights.ts",
+    "search:create-index": "ts-node scripts/create-search-index.ts",
+    "search:reindex": "ts-node scripts/reindex-flights.ts"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.1178.0",
     "@aws-sdk/lib-dynamodb": "^3.1178.0",
+    "@elastic/elasticsearch": "^9.5.1",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/elasticsearch": "^12.0.1",
     "@nestjs/platform-express": "^10.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",

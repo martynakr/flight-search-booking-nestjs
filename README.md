@@ -15,6 +15,8 @@ A flight search and booking API built with NestJS and TypeScript, using DynamoDB
 
 ### How Elasticsearch stays up to date
 
+**This is the plan. It is not built yet.** It will be built together with booking. For now, see [Known issues](#elasticsearch-is-not-updated-automatically).
+
 All writes go to DynamoDB only. Nothing writes to Elasticsearch directly.
 
 ```
@@ -184,13 +186,97 @@ npm run db:seed
 - `db:seed` writes the flights to the `flights` table.
 - Both are safe to run again. A flight with the same key is replaced, not added twice.
 
+### How flights get into Elasticsearch
+
+```
+npm run search:create-index
+npm run search:reindex
+```
+
+- `search:create-index` creates the `flights` index with its field types. It is skipped if it already exists.
+- `search:reindex` reads every flight from DynamoDB and writes it to Elasticsearch.
+- Both are safe to run again. A flight with the same key is replaced, not added twice.
+
+The reindex only reads from DynamoDB. It can rebuild Elasticsearch at any time.
+
 To empty the database:
 
 ```
 docker compose down -v
 ```
 
+## Endpoints
+
+Start the app:
+
+```
+npm run start:dev
+```
+
+The app runs on `http://localhost:3000`.
+
+### `GET /flights/search`
+
+Finds all flights on a route on one day.
+
+```
+GET /flights/search?origin=MEL&destination=SYD&date=2026-12-01
+```
+
+| Parameter     | Required | Example      | Rules                                    |
+| ------------- | -------- | ------------ | ---------------------------------------- |
+| `origin`      | Yes      | `MEL`        | 3-letter airport code. Lowercase is fine |
+| `destination` | Yes      | `SYD`        | 3-letter airport code. Lowercase is fine |
+| `date`        | Yes      | `2026-12-01` | `YYYY-MM-DD`. A local date at the origin |
+
+- Results are sorted by departure time, earliest first.
+- At most 100 flights are returned.
+- Unknown parameters are ignored.
+
+Example response:
+
+```json
+[
+  {
+    "flightNumber": "QF401",
+    "departureDate": "2026-12-01",
+    "airline": "Qantas",
+    "origin": "MEL",
+    "destination": "SYD",
+    "departureAt": "2026-12-01T06:00:00+11:00",
+    "departureAtUtc": "2026-11-30T19:00:00Z",
+    "arrivalAt": "2026-12-01T07:25:00+11:00",
+    "priceCents": 15900,
+    "currency": "USD",
+    "totalSeats": 174,
+    "seatsAvailable": 174
+  }
+]
+```
+
+#### Errors
+
+All errors return `400 Bad Request`.
+
+| Problem                             | Message                                         |
+| ----------------------------------- | ----------------------------------------------- |
+| Airport code is not 3 letters       | `origin must be a 3-letter airport code`        |
+| Date is not a real `YYYY-MM-DD`     | `date must be a real date in YYYY-MM-DD format` |
+| Origin and destination are the same | `origin and destination must be different`      |
+| Airport is not known                | `Unknown airport: XYZ`                          |
+| Date is in the past at the origin   | `date must not be in the past`                  |
+
 ## Known issues
+
+### Elasticsearch is not updated automatically
+
+Elasticsearch only changes when `npm run search:reindex` is run.
+After changing flights in DynamoDB, for example by seeding again, run the reindex by hand.
+
+This is fine for now. Nothing changes flights while the app is running yet.
+
+**Future fix:** build the DynamoDB Streams indexer, described in [How Elasticsearch stays up to date](#how-elasticsearch-stays-up-to-date).
+It will be built together with booking, because booking is the first thing that changes flights while the app is running.
 
 ### Seeding is slow
 
@@ -216,3 +302,29 @@ cabins: {
 ```
 
 A booking would then choose a cabin, and take a seat from that cabin only.
+
+## Next steps
+
+### 1. Unit tests
+
+Add unit tests, starting with `FlightsService`.
+It holds the most important rules:
+
+- Origin and destination must be different.
+- Both airports must exist.
+- The date must not be in the past, in the departure airport's time zone.
+- The search window is one local day at the departure airport, sent to Elasticsearch in UTC.
+
+The tests will use a fake repository and a fake airports service, so they do not need Elasticsearch.
+
+### 2. Pagination
+
+For now, a search returns at most 100 flights.
+That is enough for one route on one day, but not for wider searches.
+
+Add `page` and `pageSize` to the search query, and return the total number of results with each page.
+
+### 3. Filter by price
+
+Add an optional `maxPriceCents` to the search query.
+Only flights at or below that price are returned.

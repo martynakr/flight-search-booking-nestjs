@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { Flight } from '../src/flights/flight.entity';
 import { Schedule, generateFlights } from './generate-flights';
 import * as schedules from './data/schedules.json';
-import * as airports from './data/airports.json';
+import * as airports from '../src/airports/airports.json';
 
 const client = DynamoDBDocumentClient.from(
   new DynamoDBClient({
