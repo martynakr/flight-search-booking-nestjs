@@ -114,3 +114,57 @@ Example (Melbourne is UTC+11 in December):
 | End of day   | 1 Dec 23:59    | 1 Dec 12:59              |
 
 This requires knowing each airport's time zone (for example `MEL` is `Australia/Melbourne`).
+
+## Seeding flights
+
+The app needs flights in the database.
+Flights are not written by hand. They are made from a schedule, like airlines do.
+
+### How flights are made
+
+The input is two files:
+
+| File                          | What it holds                 | Example                               |
+| ----------------------------- | ----------------------------- | ------------------------------------- |
+| `scripts/data/airports.json`  | Airports and their time zones | `MEL` is in `Australia/Melbourne`     |
+| `scripts/data/schedules.json` | Flights that repeat           | QF401, MEL to SYD, every day at 06:00 |
+
+`generateFlights` (in `scripts/generate-flights.ts`) turns schedules into flights:
+
+1. Go through each day.
+2. Go through each schedule. Skip it if it does not fly on that day.
+3. Find the departure and arrival airports in `airports.json`. Skip the schedule if one is missing.
+4. Work out the departure and arrival times, in each airport's local time.
+5. Build the flight.
+
+Flights are made for the next 90 days. That is about 7,000 flights.
+
+For now, every flight has its base price and all seats free.
+
+### How flights are seeded
+
+```
+docker compose up -d
+npm run db:create-tables
+npm run db:seed
+```
+
+- `db:create-tables` creates the tables. Tables that already exist are skipped.
+- `db:seed` writes the flights to the `flights` table.
+- Both are safe to run again. A flight with the same key is replaced, not added twice.
+
+To empty the database:
+
+```
+docker compose down -v
+```
+
+## Known issues
+
+### Seeding is slow
+
+`db:seed` writes one flight at a time. That is about 7,000 requests, and takes around 30 seconds.
+
+This is fine for now. Seeding only runs when the local database is set up or reset.
+
+**Future fix:** use `BatchWriteCommand`. It writes 25 flights in one request.

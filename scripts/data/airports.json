@@ -1,0 +1,100 @@
+[
+  {
+    "code": "SYD",
+    "name": "Sydney Kingsford Smith",
+    "city": "Sydney",
+    "country": "AU",
+    "timezone": "Australia/Sydney"
+  },
+  {
+    "code": "MEL",
+    "name": "Melbourne Tullamarine",
+    "city": "Melbourne",
+    "country": "AU",
+    "timezone": "Australia/Melbourne"
+  },
+  {
+    "code": "AVV",
+    "name": "Avalon",
+    "city": "Melbourne",
+    "country": "AU",
+    "timezone": "Australia/Melbourne"
+  },
+  {
+    "code": "BNE",
+    "name": "Brisbane",
+    "city": "Brisbane",
+    "country": "AU",
+    "timezone": "Australia/Brisbane"
+  },
+  {
+    "code": "OOL",
+    "name": "Gold Coast",
+    "city": "Gold Coast",
+    "country": "AU",
+    "timezone": "Australia/Brisbane"
+  },
+  {
+    "code": "CNS",
+    "name": "Cairns",
+    "city": "Cairns",
+    "country": "AU",
+    "timezone": "Australia/Brisbane"
+  },
+  {
+    "code": "PER",
+    "name": "Perth",
+    "city": "Perth",
+    "country": "AU",
+    "timezone": "Australia/Perth"
+  },
+  {
+    "code": "ADL",
+    "name": "Adelaide",
+    "city": "Adelaide",
+    "country": "AU",
+    "timezone": "Australia/Adelaide"
+  },
+  {
+    "code": "CBR",
+    "name": "Canberra",
+    "city": "Canberra",
+    "country": "AU",
+    "timezone": "Australia/Sydney"
+  },
+  {
+    "code": "HBA",
+    "name": "Hobart",
+    "city": "Hobart",
+    "country": "AU",
+    "timezone": "Australia/Hobart"
+  },
+  {
+    "code": "DRW",
+    "name": "Darwin",
+    "city": "Darwin",
+    "country": "AU",
+    "timezone": "Australia/Darwin"
+  },
+  {
+    "code": "AKL",
+    "name": "Auckland",
+    "city": "Auckland",
+    "country": "NZ",
+    "timezone": "Pacific/Auckland"
+  },
+  {
+    "code": "SIN",
+    "name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "SG",
+    "timezone": "Asia/Singapore"
+  },
+  {
+    "code": "LHR",
+    "name": "London Heathrow",
+    "city": "London",
+    "country": "GB",
+    "timezone": "Europe/London"
+  }
+]

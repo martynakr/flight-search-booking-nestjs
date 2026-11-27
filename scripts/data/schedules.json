@@ -1,0 +1,908 @@
+[
+  {
+    "flightNumber": "QF401",
+    "airline": "Qantas",
+    "origin": "MEL",
+    "destination": "SYD",
+    "departureTime": "06:00",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 15900
+  },
+  {
+    "flightNumber": "QF409",
+    "airline": "Qantas",
+    "origin": "MEL",
+    "destination": "SYD",
+    "departureTime": "08:00",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 17900
+  },
+  {
+    "flightNumber": "QF423",
+    "airline": "Qantas",
+    "origin": "MEL",
+    "destination": "SYD",
+    "departureTime": "12:00",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 13900
+  },
+  {
+    "flightNumber": "QF433",
+    "airline": "Qantas",
+    "origin": "MEL",
+    "destination": "SYD",
+    "departureTime": "18:00",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 21900
+  },
+  {
+    "flightNumber": "VA803",
+    "airline": "Virgin Australia",
+    "origin": "MEL",
+    "destination": "SYD",
+    "departureTime": "07:00",
+    "durationMinutes": 90,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 13900
+  },
+  {
+    "flightNumber": "VA821",
+    "airline": "Virgin Australia",
+    "origin": "MEL",
+    "destination": "SYD",
+    "departureTime": "13:00",
+    "durationMinutes": 90,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 11900
+  },
+  {
+    "flightNumber": "VA847",
+    "airline": "Virgin Australia",
+    "origin": "MEL",
+    "destination": "SYD",
+    "departureTime": "19:00",
+    "durationMinutes": 90,
+    "days": [1, 2, 3, 4, 5, 7],
+    "totalSeats": 176,
+    "basePriceCents": 18900
+  },
+  {
+    "flightNumber": "JQ502",
+    "airline": "Jetstar",
+    "origin": "MEL",
+    "destination": "SYD",
+    "departureTime": "09:15",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 8900
+  },
+  {
+    "flightNumber": "JQ516",
+    "airline": "Jetstar",
+    "origin": "MEL",
+    "destination": "SYD",
+    "departureTime": "16:30",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 232,
+    "basePriceCents": 9900
+  },
+
+  {
+    "flightNumber": "QF400",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "MEL",
+    "departureTime": "06:00",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 15900
+  },
+  {
+    "flightNumber": "QF412",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "MEL",
+    "departureTime": "09:00",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 16900
+  },
+  {
+    "flightNumber": "QF430",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "MEL",
+    "departureTime": "15:00",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 14900
+  },
+  {
+    "flightNumber": "QF446",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "MEL",
+    "departureTime": "19:30",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 7],
+    "totalSeats": 174,
+    "basePriceCents": 20900
+  },
+  {
+    "flightNumber": "VA806",
+    "airline": "Virgin Australia",
+    "origin": "SYD",
+    "destination": "MEL",
+    "departureTime": "07:30",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 13900
+  },
+  {
+    "flightNumber": "VA830",
+    "airline": "Virgin Australia",
+    "origin": "SYD",
+    "destination": "MEL",
+    "departureTime": "14:00",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 12900
+  },
+  {
+    "flightNumber": "JQ505",
+    "airline": "Jetstar",
+    "origin": "SYD",
+    "destination": "MEL",
+    "departureTime": "10:30",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 8900
+  },
+  {
+    "flightNumber": "JQ521",
+    "airline": "Jetstar",
+    "origin": "SYD",
+    "destination": "MEL",
+    "departureTime": "17:45",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 232,
+    "basePriceCents": 9900
+  },
+
+  {
+    "flightNumber": "JQ601",
+    "airline": "Jetstar",
+    "origin": "AVV",
+    "destination": "SYD",
+    "departureTime": "07:15",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5],
+    "totalSeats": 186,
+    "basePriceCents": 7900
+  },
+  {
+    "flightNumber": "JQ602",
+    "airline": "Jetstar",
+    "origin": "SYD",
+    "destination": "AVV",
+    "departureTime": "10:00",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5],
+    "totalSeats": 186,
+    "basePriceCents": 7900
+  },
+
+  {
+    "flightNumber": "QF510",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "BNE",
+    "departureTime": "07:00",
+    "durationMinutes": 90,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 16900
+  },
+  {
+    "flightNumber": "QF520",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "BNE",
+    "departureTime": "12:30",
+    "durationMinutes": 90,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 15900
+  },
+  {
+    "flightNumber": "VA921",
+    "airline": "Virgin Australia",
+    "origin": "SYD",
+    "destination": "BNE",
+    "departureTime": "08:00",
+    "durationMinutes": 90,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 14900
+  },
+  {
+    "flightNumber": "JQ810",
+    "airline": "Jetstar",
+    "origin": "SYD",
+    "destination": "BNE",
+    "departureTime": "15:00",
+    "durationMinutes": 90,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 9900
+  },
+  {
+    "flightNumber": "QF511",
+    "airline": "Qantas",
+    "origin": "BNE",
+    "destination": "SYD",
+    "departureTime": "07:00",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 17900
+  },
+  {
+    "flightNumber": "QF527",
+    "airline": "Qantas",
+    "origin": "BNE",
+    "destination": "SYD",
+    "departureTime": "14:00",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 15900
+  },
+  {
+    "flightNumber": "VA922",
+    "airline": "Virgin Australia",
+    "origin": "BNE",
+    "destination": "SYD",
+    "departureTime": "11:00",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 14900
+  },
+  {
+    "flightNumber": "JQ811",
+    "airline": "Jetstar",
+    "origin": "BNE",
+    "destination": "SYD",
+    "departureTime": "18:00",
+    "durationMinutes": 95,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 9900
+  },
+
+  {
+    "flightNumber": "QF610",
+    "airline": "Qantas",
+    "origin": "MEL",
+    "destination": "BNE",
+    "departureTime": "07:30",
+    "durationMinutes": 125,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 19900
+  },
+  {
+    "flightNumber": "VA313",
+    "airline": "Virgin Australia",
+    "origin": "MEL",
+    "destination": "BNE",
+    "departureTime": "11:00",
+    "durationMinutes": 125,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 17900
+  },
+  {
+    "flightNumber": "JQ570",
+    "airline": "Jetstar",
+    "origin": "MEL",
+    "destination": "BNE",
+    "departureTime": "14:30",
+    "durationMinutes": 125,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 11900
+  },
+  {
+    "flightNumber": "QF611",
+    "airline": "Qantas",
+    "origin": "BNE",
+    "destination": "MEL",
+    "departureTime": "10:30",
+    "durationMinutes": 140,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 19900
+  },
+  {
+    "flightNumber": "VA314",
+    "airline": "Virgin Australia",
+    "origin": "BNE",
+    "destination": "MEL",
+    "departureTime": "15:00",
+    "durationMinutes": 140,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 17900
+  },
+  {
+    "flightNumber": "JQ571",
+    "airline": "Jetstar",
+    "origin": "BNE",
+    "destination": "MEL",
+    "departureTime": "18:00",
+    "durationMinutes": 140,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 11900
+  },
+
+  {
+    "flightNumber": "QF575",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "PER",
+    "departureTime": "08:30",
+    "durationMinutes": 300,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 297,
+    "basePriceCents": 39900
+  },
+  {
+    "flightNumber": "QF583",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "PER",
+    "departureTime": "16:00",
+    "durationMinutes": 300,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 297,
+    "basePriceCents": 36900
+  },
+  {
+    "flightNumber": "VA567",
+    "airline": "Virgin Australia",
+    "origin": "SYD",
+    "destination": "PER",
+    "departureTime": "10:00",
+    "durationMinutes": 300,
+    "days": [1, 3, 5, 7],
+    "totalSeats": 176,
+    "basePriceCents": 34900
+  },
+  {
+    "flightNumber": "QF576",
+    "airline": "Qantas",
+    "origin": "PER",
+    "destination": "SYD",
+    "departureTime": "12:30",
+    "durationMinutes": 250,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 297,
+    "basePriceCents": 39900
+  },
+  {
+    "flightNumber": "QF578",
+    "airline": "Qantas",
+    "origin": "PER",
+    "destination": "SYD",
+    "departureTime": "23:15",
+    "durationMinutes": 250,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 297,
+    "basePriceCents": 32900
+  },
+  {
+    "flightNumber": "VA568",
+    "airline": "Virgin Australia",
+    "origin": "PER",
+    "destination": "SYD",
+    "departureTime": "14:00",
+    "durationMinutes": 250,
+    "days": [1, 3, 5, 7],
+    "totalSeats": 176,
+    "basePriceCents": 34900
+  },
+
+  {
+    "flightNumber": "QF477",
+    "airline": "Qantas",
+    "origin": "MEL",
+    "destination": "PER",
+    "departureTime": "09:00",
+    "durationMinutes": 255,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 297,
+    "basePriceCents": 34900
+  },
+  {
+    "flightNumber": "JQ972",
+    "airline": "Jetstar",
+    "origin": "MEL",
+    "destination": "PER",
+    "departureTime": "13:00",
+    "durationMinutes": 255,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 232,
+    "basePriceCents": 22900
+  },
+  {
+    "flightNumber": "QF478",
+    "airline": "Qantas",
+    "origin": "PER",
+    "destination": "MEL",
+    "departureTime": "13:30",
+    "durationMinutes": 215,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 297,
+    "basePriceCents": 34900
+  },
+  {
+    "flightNumber": "JQ973",
+    "airline": "Jetstar",
+    "origin": "PER",
+    "destination": "MEL",
+    "departureTime": "22:30",
+    "durationMinutes": 215,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 232,
+    "basePriceCents": 19900
+  },
+
+  {
+    "flightNumber": "QF735",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "ADL",
+    "departureTime": "08:00",
+    "durationMinutes": 120,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 21900
+  },
+  {
+    "flightNumber": "VA420",
+    "airline": "Virgin Australia",
+    "origin": "SYD",
+    "destination": "ADL",
+    "departureTime": "14:00",
+    "durationMinutes": 120,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 18900
+  },
+  {
+    "flightNumber": "QF736",
+    "airline": "Qantas",
+    "origin": "ADL",
+    "destination": "SYD",
+    "departureTime": "11:30",
+    "durationMinutes": 105,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 21900
+  },
+  {
+    "flightNumber": "VA421",
+    "airline": "Virgin Australia",
+    "origin": "ADL",
+    "destination": "SYD",
+    "departureTime": "17:00",
+    "durationMinutes": 105,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 18900
+  },
+  {
+    "flightNumber": "QF679",
+    "airline": "Qantas",
+    "origin": "MEL",
+    "destination": "ADL",
+    "departureTime": "09:30",
+    "durationMinutes": 80,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 15900
+  },
+  {
+    "flightNumber": "JQ770",
+    "airline": "Jetstar",
+    "origin": "MEL",
+    "destination": "ADL",
+    "departureTime": "17:00",
+    "durationMinutes": 80,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 8900
+  },
+  {
+    "flightNumber": "QF680",
+    "airline": "Qantas",
+    "origin": "ADL",
+    "destination": "MEL",
+    "departureTime": "12:00",
+    "durationMinutes": 80,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 15900
+  },
+  {
+    "flightNumber": "JQ771",
+    "airline": "Jetstar",
+    "origin": "ADL",
+    "destination": "MEL",
+    "departureTime": "19:30",
+    "durationMinutes": 80,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 8900
+  },
+
+  {
+    "flightNumber": "QF1501",
+    "airline": "QantasLink",
+    "origin": "SYD",
+    "destination": "CBR",
+    "departureTime": "07:00",
+    "durationMinutes": 55,
+    "days": [1, 2, 3, 4, 5],
+    "totalSeats": 110,
+    "basePriceCents": 19900
+  },
+  {
+    "flightNumber": "QF1503",
+    "airline": "QantasLink",
+    "origin": "SYD",
+    "destination": "CBR",
+    "departureTime": "17:00",
+    "durationMinutes": 55,
+    "days": [1, 2, 3, 4, 5, 7],
+    "totalSeats": 110,
+    "basePriceCents": 22900
+  },
+  {
+    "flightNumber": "QF1502",
+    "airline": "QantasLink",
+    "origin": "CBR",
+    "destination": "SYD",
+    "departureTime": "08:30",
+    "durationMinutes": 55,
+    "days": [1, 2, 3, 4, 5],
+    "totalSeats": 110,
+    "basePriceCents": 19900
+  },
+  {
+    "flightNumber": "QF1504",
+    "airline": "QantasLink",
+    "origin": "CBR",
+    "destination": "SYD",
+    "departureTime": "18:30",
+    "durationMinutes": 55,
+    "days": [1, 2, 3, 4, 5, 7],
+    "totalSeats": 110,
+    "basePriceCents": 22900
+  },
+
+  {
+    "flightNumber": "JQ713",
+    "airline": "Jetstar",
+    "origin": "MEL",
+    "destination": "HBA",
+    "departureTime": "08:00",
+    "durationMinutes": 75,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 7900
+  },
+  {
+    "flightNumber": "VA1532",
+    "airline": "Virgin Australia",
+    "origin": "MEL",
+    "destination": "HBA",
+    "departureTime": "13:00",
+    "durationMinutes": 75,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 11900
+  },
+  {
+    "flightNumber": "JQ714",
+    "airline": "Jetstar",
+    "origin": "HBA",
+    "destination": "MEL",
+    "departureTime": "10:00",
+    "durationMinutes": 75,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 7900
+  },
+  {
+    "flightNumber": "VA1533",
+    "airline": "Virgin Australia",
+    "origin": "HBA",
+    "destination": "MEL",
+    "departureTime": "15:30",
+    "durationMinutes": 75,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 11900
+  },
+
+  {
+    "flightNumber": "QF702",
+    "airline": "Qantas",
+    "origin": "BNE",
+    "destination": "CNS",
+    "departureTime": "08:30",
+    "durationMinutes": 140,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 22900
+  },
+  {
+    "flightNumber": "JQ952",
+    "airline": "Jetstar",
+    "origin": "BNE",
+    "destination": "CNS",
+    "departureTime": "13:00",
+    "durationMinutes": 140,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 12900
+  },
+  {
+    "flightNumber": "QF703",
+    "airline": "Qantas",
+    "origin": "CNS",
+    "destination": "BNE",
+    "departureTime": "11:45",
+    "durationMinutes": 140,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 22900
+  },
+  {
+    "flightNumber": "JQ953",
+    "airline": "Jetstar",
+    "origin": "CNS",
+    "destination": "BNE",
+    "departureTime": "16:30",
+    "durationMinutes": 140,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 12900
+  },
+
+  {
+    "flightNumber": "VA510",
+    "airline": "Virgin Australia",
+    "origin": "SYD",
+    "destination": "OOL",
+    "departureTime": "09:00",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 13900
+  },
+  {
+    "flightNumber": "JQ430",
+    "airline": "Jetstar",
+    "origin": "SYD",
+    "destination": "OOL",
+    "departureTime": "15:30",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 8900
+  },
+  {
+    "flightNumber": "VA511",
+    "airline": "Virgin Australia",
+    "origin": "OOL",
+    "destination": "SYD",
+    "departureTime": "11:30",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 176,
+    "basePriceCents": 13900
+  },
+  {
+    "flightNumber": "JQ431",
+    "airline": "Jetstar",
+    "origin": "OOL",
+    "destination": "SYD",
+    "departureTime": "18:00",
+    "durationMinutes": 85,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 186,
+    "basePriceCents": 8900
+  },
+
+  {
+    "flightNumber": "QF840",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "DRW",
+    "departureTime": "10:00",
+    "durationMinutes": 270,
+    "days": [1, 3, 5, 7],
+    "totalSeats": 174,
+    "basePriceCents": 42900
+  },
+  {
+    "flightNumber": "QF841",
+    "airline": "Qantas",
+    "origin": "DRW",
+    "destination": "SYD",
+    "departureTime": "15:30",
+    "durationMinutes": 255,
+    "days": [1, 3, 5, 7],
+    "totalSeats": 174,
+    "basePriceCents": 42900
+  },
+
+  {
+    "flightNumber": "QF143",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "AKL",
+    "departureTime": "07:00",
+    "durationMinutes": 185,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 29900
+  },
+  {
+    "flightNumber": "NZ104",
+    "airline": "Air New Zealand",
+    "origin": "SYD",
+    "destination": "AKL",
+    "departureTime": "10:00",
+    "durationMinutes": 185,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 302,
+    "basePriceCents": 32900
+  },
+  {
+    "flightNumber": "NZ103",
+    "airline": "Air New Zealand",
+    "origin": "AKL",
+    "destination": "SYD",
+    "departureTime": "07:00",
+    "durationMinutes": 200,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 302,
+    "basePriceCents": 32900
+  },
+  {
+    "flightNumber": "QF144",
+    "airline": "Qantas",
+    "origin": "AKL",
+    "destination": "SYD",
+    "departureTime": "12:30",
+    "durationMinutes": 200,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 174,
+    "basePriceCents": 29900
+  },
+
+  {
+    "flightNumber": "SQ222",
+    "airline": "Singapore Airlines",
+    "origin": "SYD",
+    "destination": "SIN",
+    "departureTime": "09:30",
+    "durationMinutes": 495,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 253,
+    "basePriceCents": 79900
+  },
+  {
+    "flightNumber": "SQ212",
+    "airline": "Singapore Airlines",
+    "origin": "SYD",
+    "destination": "SIN",
+    "departureTime": "16:30",
+    "durationMinutes": 495,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 253,
+    "basePriceCents": 74900
+  },
+  {
+    "flightNumber": "SQ221",
+    "airline": "Singapore Airlines",
+    "origin": "SIN",
+    "destination": "SYD",
+    "departureTime": "20:25",
+    "durationMinutes": 470,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 253,
+    "basePriceCents": 74900
+  },
+  {
+    "flightNumber": "SQ211",
+    "airline": "Singapore Airlines",
+    "origin": "SIN",
+    "destination": "SYD",
+    "departureTime": "08:30",
+    "durationMinutes": 470,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 253,
+    "basePriceCents": 79900
+  },
+
+  {
+    "flightNumber": "QF1",
+    "airline": "Qantas",
+    "origin": "SYD",
+    "destination": "LHR",
+    "departureTime": "15:55",
+    "durationMinutes": 1470,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 485,
+    "basePriceCents": 189900
+  },
+  {
+    "flightNumber": "QF2",
+    "airline": "Qantas",
+    "origin": "LHR",
+    "destination": "SYD",
+    "departureTime": "21:00",
+    "durationMinutes": 1360,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 485,
+    "basePriceCents": 189900
+  },
+  {
+    "flightNumber": "QF9",
+    "airline": "Qantas",
+    "origin": "PER",
+    "destination": "LHR",
+    "departureTime": "18:15",
+    "durationMinutes": 1045,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 236,
+    "basePriceCents": 199900
+  },
+  {
+    "flightNumber": "QF10",
+    "airline": "Qantas",
+    "origin": "LHR",
+    "destination": "PER",
+    "departureTime": "13:00",
+    "durationMinutes": 1000,
+    "days": [1, 2, 3, 4, 5, 6, 7],
+    "totalSeats": 236,
+    "basePriceCents": 199900
+  }
+]
