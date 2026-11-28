@@ -305,28 +305,159 @@ cabins: {
 
 A booking would then choose a cabin, and take a seat from that cabin only.
 
-## Next steps
+## Plan
 
-### 1. Unit tests
+The next parts follow what a real flight booking app does.
+Each part practises one thing: failures, data that changes, observability or testing.
 
-Add unit tests, starting with `FlightsService`.
-It holds the most important rules:
+The order matters. Each part uses the one before it.
 
-- Origin and destination must be different.
-- Both airports must exist.
-- The date must not be in the past, in the departure airport's time zone.
-- The search window is one local day at the departure airport, sent to Elasticsearch in UTC.
+### 1. Booking
 
-The tests will use a fake repository and a fake airports service, so they do not need Elasticsearch.
+- `POST /bookings` takes a seat and creates the booking in one transaction. See [Booking a seat safely](#booking-a-seat-safely).
+- `GET /bookings/:ref?lastName=Smith` returns a booking. See [Guest bookings](#guest-bookings).
+- The DynamoDB Streams indexer, so seat counts in Elasticsearch change after a booking. See [How Elasticsearch stays up to date](#how-elasticsearch-stays-up-to-date).
 
-### 2. Pagination
+The app is the airline. DynamoDB stays the source of truth for flights, prices and seats.
 
-For now, a search returns at most 100 flights.
-That is enough for one route on one day, but not for wider searches.
+### 2. A payment provider that can fail
 
-Add `page` and `pageSize` to the search query, and return the total number of results with each page.
+A booking is paid for by calling a payment provider, like Stripe.
 
-### 3. Filter by price
+The project adds a fake payment provider. It is a small separate app, started by Docker Compose.
 
-Add an optional `maxPriceCents` to the search query.
-Only flights at or below that price are returned.
+| Endpoint                        | What it does                             |
+| ------------------------------- | ---------------------------------------- |
+| `POST /payments`                | Charges the card                         |
+| `GET /payments/:idempotencyKey` | Returns the result of an earlier payment |
+
+It can be set to be slow or to fail on purpose, for example:
+
+```
+PAYMENT_DELAY_MS=3000
+PAYMENT_ERROR_RATE=0.3
+```
+
+So failures happen when wanted, and the handling can be tested and shown.
+
+#### How a booking is paid for
+
+1. Take the seat and create the booking with status `PENDING_PAYMENT`, in one transaction.
+2. Charge the card.
+3. Payment works: the booking becomes `CONFIRMED`.
+4. Payment is declined: the booking becomes `CANCELLED` and the seat is given back.
+
+The seat is taken **before** the card is charged. So a card is never charged for a seat that is gone.
+
+#### A timeout does not mean it failed
+
+If the payment provider does not answer in time, the payment **may have worked**.
+The app does not know, so it must not cancel the booking or charge again with a new key.
+
+- The booking stays `PENDING_PAYMENT`.
+- The app asks `GET /payments/:idempotencyKey` for the real result, and then confirms or cancels.
+- If it still cannot find out, a job checks again later.
+
+### 3. When the payment provider fails or is slow
+
+| Problem                              | What the app does                                                                   |
+| ------------------------------------ | ----------------------------------------------------------------------------------- |
+| It is slow                           | Stop waiting after a timeout, for example 2 seconds                                 |
+| It fails once (`500`, network error) | Retry up to 3 times. Wait longer each time, plus a random bit (backoff with jitter) |
+| It keeps failing                     | Circuit breaker: stop calling it for 30 seconds and fail fast                       |
+| It says the request is wrong (`400`) | Do not retry. It will fail again                                                    |
+
+The user gets a clear `503 Service Unavailable` with a message, not a `500`.
+
+#### Retries must be safe
+
+A retry is only safe if doing the same call twice has the same result.
+
+- **Checking a payment:** safe. Asking twice changes nothing.
+- **Charging a card:** not safe. A retry could charge twice.
+
+So each booking has an **idempotency key**, a random id made once per booking.
+It is sent with every try. The payment provider remembers the key, and a repeat returns the first result instead of charging again.
+
+`POST /bookings` works the same way, so a double click in the frontend does not book twice.
+
+#### Why the random bit
+
+Without it, every app that failed at the same moment retries at the same moment.
+The slow service gets hit by all of them at once and stays slow.
+
+### 4. Price changes during booking
+
+A price changes with an update to the flight in DynamoDB, for example with a script:
+
+```
+npm run flights:set-price -- QF401 2026-12-01 17900
+```
+
+Prices in search come from Elasticsearch, so they can be a little old.
+So the price is checked with DynamoDB before booking:
+
+1. The user picks a flight. The frontend calls `POST /quotes`.
+2. The API reads the live price from DynamoDB, and saves a **quote** with that price.
+   A quote is valid for 15 minutes. DynamoDB TTL deletes old quotes by itself.
+3. The booking uses the quote: `POST /bookings` with a `quoteId`.
+4. The booking transaction takes a seat only if `priceCents` is still the quoted price.
+5. If the quote has expired or the price changed, the API returns `409 Conflict` with the new price.
+   The frontend asks: "The price changed from $159 to $179. Continue?"
+
+The same goes for seats. If the last seat was taken, the API returns `409 Conflict` and the frontend shows "sold out".
+
+The check is part of the transaction, so the price cannot change between the check and taking the seat.
+
+### 5. Observability
+
+The goal: when something goes wrong, the logs and numbers show what and where.
+
+- **Logs** in JSON with [pino](https://github.com/pinojs/pino). Each request gets a **request id**.
+  It is in every log line and is sent to the payment provider, so one booking can be followed from start to end.
+- Every retry, timeout and circuit breaker change is logged.
+- **Metrics** on `GET /metrics`: number of requests, errors, response times (p95), and payments by result.
+- **Health check** on `GET /health`. It checks that DynamoDB and Elasticsearch can be reached.
+- Later: tracing with OpenTelemetry.
+
+### 6. Booking confirmation in S3
+
+After a booking, a confirmation file is saved to S3. Locally, S3 runs in Docker with LocalStack.
+The user gets a link that works for a short time (a presigned URL).
+
+If S3 fails, the booking still counts. The booking is what matters, so the confirmation is made again later.
+Not every step has to succeed at the same time.
+
+### 7. Frontend
+
+A small React app:
+
+1. Search flights
+2. Pick a flight and see the confirmed price
+3. Enter passenger details and book
+4. See the booking and its confirmation link
+
+It shows loading, errors, "price changed" and "sold out", so the failure handling is visible.
+
+### 8. Testing
+
+| Type        | What is tested                                                                                       | Runs against                                     |
+| ----------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Unit        | Rules in services, retries and timeouts (with a fake clock)                                          | Fakes only                                       |
+| Integration | Repositories with real queries                                                                       | Elasticsearch and DynamoDB in Docker, also in CI |
+| Contract    | The app and the payment provider agree on requests and responses, with [Pact](https://docs.pact.io/) | No running services                              |
+| End to end  | The whole API over HTTP                                                                              | Everything in Docker                             |
+
+Unit tests for `FlightsService` are done.
+
+### 9. Performance
+
+Load test search and booking with [k6](https://k6.io/).
+Write the results here, for example "search p95 is 80 ms at 100 requests per second".
+Run it again after changes to see if they made things faster or slower.
+
+### Smaller changes to search
+
+- **Pagination:** for now, a search returns at most 100 flights.
+  Add `page` and `pageSize` to the search query, and return the total number of results with each page.
+- **Filter by price:** add an optional `maxPriceCents`. Only flights at or below that price are returned.
