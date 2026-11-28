@@ -1,5 +1,7 @@
 # Flight Search & Booking
 
+[![CI](https://github.com/martynakr/flight-search-booking-nestjs/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/martynakr/flight-search-booking-nestjs/actions/workflows/ci.yml)
+
 A flight search and booking API built with NestJS and TypeScript, using DynamoDB to store flights and bookings and Elasticsearch to search them.
 
 ## DynamoDB and Elasticsearch
